@@ -1,0 +1,130 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Feedback or Announcement</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        textarea {
+        width: 100%;
+            box-sizing: border-box;
+            padding: 8px;
+            line-height: 1.5; /* Line height to calculate max lines */
+            resize: none; /* Prevent manual resizing */
+            overflow: hidden; /* Hide overflow while resizing */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="margin-top: 30px;">Add Announcement or Feedback</h2>
+        <div id="success-message">
+            <!-- SUCCESS_MESSAGE -->
+        </div>
+        <form action="/add_announcement_or_feedback" method="POST" enctype="multipart/form-data">
+        <label for="type">Type:</label>
+        <select class="form-select" name="type" id="type" required>
+            <option value="1">Feedback</option>
+            <option value="2">Announcement</option>
+        </select><br>
+
+        <!-- Feedback Form -->
+        <div id="feedback-form">
+            <label for="student_id">Select Student:</label>
+            <select class="form-select" name="student_id" required>
+            <!-- STUDENT_OPTIONS -->
+            </select><br>
+
+            <label for="additional_feedback">Additional Feedback:</label>
+            <textarea class="form-control" name="additional_feedback"></textarea><br>
+
+            <label for="weekend_assignment">Weekend Assignment:</label>
+            <textarea class="form-control" name="weekend_assignment"></textarea><br>
+
+            <label for="extracurricular">Extracurricular:</label>
+            <textarea class="form-control" name="extracurricular"></textarea><br>
+
+            <h3>Subject Feedback</h3>
+            <!-- SUBJECT_FEEDBACK -->
+        </div>
+
+        <!-- Announcement Form -->
+        <div id="announcement-form">
+            <label for="content">Content*:</label>
+            <textarea class="form-control" name="content"></textarea><br>
+            <div class="mb-3">
+                <label for="image" class="form-label">Input Gambar</label>
+                <input class="form-control" type="file" id="image" name="image" multiple>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const fileInput = document.getElementById('image');
+        const maxFiles = 5; // Max number of files
+        const maxFileSize = 2 * 1024 * 1024; // Max file size: 2MB (in bytes)
+
+        fileInput.addEventListener('change', function() {
+            const files = fileInput.files;
+            if (files.length > maxFiles) {
+            alert(`You can only upload a maximum of ${maxFiles} files.`);
+            fileInput.value = ''; // Reset file input
+            } else {
+            for (let i = 0; i < files.length; i++) {
+                if (files[i].size > maxFileSize) {
+                alert(`File ${files[i].name} is too large. Max size is 2MB.`);
+                fileInput.value = ''; // Reset file input
+                break;
+                }
+            }
+            }
+        });
+
+        const maxLines = 5;
+
+        // Function to resize a textarea
+        function autoResize(textarea) {
+            const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight);
+            const maxHeight = maxLines * lineHeight;
+
+            textarea.style.height = 'auto'; // Reset height to recalculate
+            const scrollHeight = textarea.scrollHeight;
+
+            textarea.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
+            textarea.style.overflowY = scrollHeight > maxHeight ? 'auto' : 'hidden';
+        }
+
+        // Get all textareas and add event listeners
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach((textarea) => {
+        textarea.addEventListener('input', function () {
+            autoResize(this);
+        });
+
+        // Optional: Adjust height on page load if textarea has prefilled content
+        textarea.dispatchEvent(new Event('input'));
+        });
+
+        const typeSelect = document.getElementById("type");
+        const feedbackForm = document.getElementById("feedback-form");
+        const announcementForm = document.getElementById("announcement-form");
+
+        function toggleForms() {
+        if (typeSelect.value === "1") {
+            feedbackForm.style.display = "block";
+            announcementForm.style.display = "none";
+        } else {
+            feedbackForm.style.display = "none";
+            announcementForm.style.display = "block";
+        }
+        }
+
+        typeSelect.addEventListener("change", toggleForms);
+        toggleForms(); // Initialize form state
+    </script>
+</body>
+      
+</html>

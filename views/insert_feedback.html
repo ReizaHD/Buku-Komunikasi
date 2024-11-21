@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Feedback</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        nav{
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="success-message">
+        <!-- SUCCESS_MESSAGE -->
+      </div>
+    <div class="container">
+    <h2 style="margin-top: 30px;">Add Feedback</h2>
+    <form action="/add_feedback_form" method="POST">
+        <label for="student_id">Select Student:</label>
+        <select class="form-select" name="student_id" required>
+            <!-- STUDENT_OPTIONS -->
+        </select><br>
+
+        <label for="additional_feedback">Additional Feedback:</label>
+        <textarea class="form-control" name="additional_feedback" required></textarea><br>
+
+        <label for="weekend_assignment">Weekend Assignment:</label>
+        <textarea class="form-control" name="weekend_assignment"></textarea><br>
+
+        <label for="extracurricular">Extracurricular:</label>
+        <textarea class="form-control" name="extracurricular"></textarea><br>
+
+        <h3>Subject Feedback</h3>
+        <!-- SUBJECT_FEEDBACK -->
+
+        <button class="btn btn-primary" type="submit">Submit Feedback</button>
+    </form>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
